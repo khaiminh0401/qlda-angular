@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.control{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    label{
+        font-weight: 500;
+    }
+    input{
+        background-color: #F7FBFF;
+        color: #8897AD;
+        outline: none;
+        border-radius: 12px;
+        padding: 10px;
+        border: 1px solid #D4D7E3;
+    }
+}
