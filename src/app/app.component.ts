@@ -9,11 +9,12 @@ import {
 import { AppConst } from './app.const';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
