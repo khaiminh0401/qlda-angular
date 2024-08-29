@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { delay, of, switchMap } from 'rxjs';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  standalone: true,
+  imports: [ReactiveFormsModule]
 })
 export class LoginComponent {
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
+  loginForm!:FormGroup;
+  constructor(
+    private appService: AppService
+  ){
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
+    });
+  }
   onSubmitForm(){
-    console.log(this.loginForm.value);
+    const result = this.appService.methodPOST("auth/login", this.loginForm.value);
+    console.log(result);
+    return;
   }
 }
