@@ -1,21 +1,37 @@
 <div class="login-page">
-    <div class="grid grid-cols-2 grid-flow-col">
-        <div class="flex justify-center items-center">
-            <form class="form w-4/6" [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
-                <section>Chào mừng trở lại</section>
-                <div class="control">
-                    <label for="email">Tài khoản</label>
-                    <input type="text" id="email" formControlName="username">
-                </div>
-                <div class="control">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" formControlName="password">
-                </div>
-                <button [type]="'submit'" [disabled]="!loginForm.valid">Đăng nhập</button>
-            </form>
+  <div class="grid grid-cols-2 grid-flow-col h-screen">
+    <div class="flex justify-center items-center">
+      <form
+        class="form w-4/6"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmitForm()"
+      >
+        <section>Chào mừng trở lại</section>
+        <div class="control">
+          <label for="email">Tài khoản</label>
+          <input type="text" id="email" formControlName="username" />
         </div>
-        <div class="flex justify-center items-center">
-            <img class="w-4/6" [loading]="'lazy'" src="assets/login/background.svg" alt="error">
+        <div class="control">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" formControlName="password" />
         </div>
+        <button [type]="'submit'" [disabled]="!loginForm.valid">
+          Đăng nhập
+        </button>
+      </form>
     </div>
+    <div class="flex justify-center items-center">
+      <img
+        class="h-screen w-full p-8 rounded-[45px] object-cover"
+        (error)="this.imageService.onError($event)"
+        (load)="this.imageService.onLoad(this.initImg)"
+        [loading]="'lazy'"
+        [src]="'assets/login/background.svg'"
+        alt="error"
+      />
+      @if (this.initImg == false){
+        <div class="h-screen w-full p-8 rounded-[45px] bg-slate-950"></div>
+      }
+    </div>
+  </div>
 </div>
