@@ -23,15 +23,14 @@
     <div class="flex justify-center items-center">
       <img
         class="h-screen w-full p-8 rounded-[45px] object-cover"
+        [ngClass]="{'hidden': !this.initImg}"
         (error)="this.imageService.onError($event)"
-        (load)="this.imageService.onLoad(this.initImg)"
+        (load)="onLoad()"
         [loading]="'lazy'"
         [src]="'assets/login/background.svg'"
         alt="error"
       />
-      @if (this.initImg == false){
-        <div class="h-screen w-full p-8 rounded-[45px] bg-slate-950"></div>
-      }
+      <div [ngClass]="{'hidden': this.initImg}" class="h-screen w-full m-8 rounded-[45px] bg-slate-400"></div>
     </div>
   </div>
 </div>

@@ -3,13 +3,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AppService } from '../app.service';
 import { ImageService } from '../service/image.service';
 import { AppCommon } from '../app.common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule, CommonModule]
 })
 export class LoginComponent implements AppCommon, OnInit {
   
@@ -39,5 +40,8 @@ export class LoginComponent implements AppCommon, OnInit {
     const result = this.appService.methodPOST("auth/login", this.loginForm.value);
     console.log(result);
     return;
+  }
+  onLoad(){
+    this.initImg = true;
   }
 }
