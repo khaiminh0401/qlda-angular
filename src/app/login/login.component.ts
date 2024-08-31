@@ -4,6 +4,8 @@ import { AppService } from '../app.service';
 import { ImageService } from '../service/image.service';
 import { AppCommon } from '../app.common';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AppConst } from '../app.const';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements AppCommon, OnInit {
 
   constructor(
     private appService: AppService,
-    public imageService: ImageService
+    public imageService: ImageService,
+    private router: Router
   ){}
   ngOnInit(): void {
     this.setDefault();
@@ -36,9 +39,12 @@ export class LoginComponent implements AppCommon, OnInit {
    * * Sự kiện nhấn nút đăng nhập
    * * Call API: auth/login
    */
-  onSubmitForm(){
-    const result = this.appService.methodPOST("auth/login", this.loginForm.value);
-    console.log(result);
+  async onSubmitForm(){
+    const result = await this.appService.methodPOST("auth/login", this.loginForm.value);
+    if(result?.status == 1){
+      localStorage.setItem("tokenUser", result.data.access_token);
+      this.router.navigate([AppConst.page.home]);
+    }
     return;
   }
   onLoad(){

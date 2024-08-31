@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Resp } from './models/resp.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +17,13 @@ export class AppService {
       .toPromise();
   };
 
-  methodPOST = (url: string, params: any) : Promise<any> => {
+  methodPOST = (url: string, params: any) : Promise<Resp | undefined> => {
     return this.http
-      .post(this.baseUrl+url, params, {
-        
-      })
+      .post<Resp>(this.baseUrl+url, params, {})
       .toPromise();
   };
+
+  getUser(){
+    
+  }
 }
