@@ -39,14 +39,11 @@ export class LoginComponent implements AppCommon, OnInit {
    * * Sự kiện nhấn nút đăng nhập
    * * Call API: auth/login
    */
-  async onSubmitForm(){
-    const result = await this.appService.methodPOST("auth/login", this.loginForm.value);
-    if(result?.status == 1){
-      localStorage.setItem("tokenUser", result.data.access_token);
-      this.router.navigate([AppConst.page.home]);
-    }
-    return;
+  onSubmitForm(){
+    this.appService.signIn(this.loginForm.value);
   }
+
+
   onLoad(){
     this.initImg = true;
   }
