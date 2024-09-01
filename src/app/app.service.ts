@@ -74,6 +74,7 @@ export class AppService {
     )
     .subscribe((result)=>{
       if(result && result?.status == 1){
+        localStorage.setItem("user_info", JSON.stringify(result?.data));
         this.router.navigate([AppConst.page.home]);
         return;
       }
