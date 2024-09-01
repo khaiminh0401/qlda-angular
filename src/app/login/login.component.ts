@@ -30,8 +30,8 @@ export class LoginComponent implements AppCommon, OnInit {
 
   setDefault(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
+      username: new FormControl('', [Validators.minLength(5)]),
+      password: new FormControl('', [Validators.minLength(8)])
     });
   }
 
@@ -41,10 +41,5 @@ export class LoginComponent implements AppCommon, OnInit {
    */
   onSubmitForm(){
     this.appService.signIn(this.loginForm.value);
-  }
-
-
-  onLoad(){
-    this.initImg = true;
   }
 }

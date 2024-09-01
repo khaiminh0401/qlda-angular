@@ -9,13 +9,29 @@
         <section>Chào mừng trở lại</section>
         <div class="control">
           <label for="email">Tài khoản</label>
-          <input type="text" id="email" formControlName="username" />
+          <input type="text" id="username" formControlName="username" autocomplete="off"/>
+          @if(loginForm.get("username")?.invalid && loginForm.get("username")?.touched){
+            @if(loginForm.get('username')?.hasError("required")){
+              <div>Username không để trống</div>
+            }
+            @if(loginForm.get('username')?.hasError("minlength")){
+              <div>Usernme ít nhất 5 kí tự</div>
+            }
+          }
         </div>
         <div class="control">
           <label for="password">Mật khẩu</label>
-          <input type="password" id="password" formControlName="password" />
+          <input type="password" id="password" formControlName="password" autocomplete="off"/>
+          @if(loginForm.get("password")?.invalid && loginForm.get("password")?.touched){
+            @if(loginForm.get('password')?.hasError("required")){
+              <div>Mật khẩu không để trống</div>
+            }
+            @if(loginForm.get('password')?.hasError("minlength")){
+              <div>Mật khẩu ít nhất 8 kí tự</div>
+            }
+          }
         </div>
-        <button [type]="'submit'" [disabled]="!loginForm.valid">
+        <button [type]="'submit'" class="bg-[#162D3A] text-white rounded-md w-full p-[12px]" [disabled]="!loginForm.valid">
           Đăng nhập
         </button>
       </form>
@@ -23,14 +39,11 @@
     <div class="flex justify-center items-center">
       <img
         class="h-screen w-full p-8 rounded-[45px] object-cover"
-        [ngClass]="{'hidden': !this.initImg}"
         (error)="this.imageService.onError($event)"
-        (load)="onLoad()"
         [loading]="'lazy'"
         [src]="'assets/login/background.svg'"
         alt="error"
       />
-      <div [ngClass]="{'hidden': this.initImg}" class="h-screen w-full m-8 rounded-[45px] bg-slate-400"></div>
     </div>
   </div>
 </div>
