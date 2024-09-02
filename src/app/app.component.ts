@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title = 'angular-qlda';
   hideMenu: boolean = false;
   constructor(private router: Router, private location: Location, private titleService: Title) {}
   ngOnInit(): void {
