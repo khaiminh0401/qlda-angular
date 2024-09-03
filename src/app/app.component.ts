@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
   NavigationEnd,
+  NavigationStart,
   Router,
   RouterLink,
-  RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import { AppConst } from './app.const';
-import { Location } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppService, UserInfo } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -20,16 +19,34 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   hideMenu: boolean = false;
-  constructor(private router: Router, private location: Location, private titleService: Title) {}
+  userInfo!: UserInfo | null;
+
+  constructor(private router: Router, private appService: AppService) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
+      this.userInfo = this.appService.getUser();
+      if (event instanceof NavigationStart) {
+        // nếu truy cập tới /logout thì clear cache
+        if (event.url.includes('logout')) {
+          localStorage.removeItem(AppConst.common.key_token);
+          localStorage.removeItem('user_info');
+          localStorage.removeItem('username');
+          setTimeout(() => {
+            this.router.navigate([AppConst.page.login]);
+          }, 5000);
+        }
+      }
       if (event instanceof NavigationEnd) {
         /**
-         * *TDDO: Nếu url hiện tại là login thì hide
+         * *: Nếu url hiện tại là login thì hide
          */
-        if (this.location.path().includes(AppConst.page.login)) {
-          this.hideMenu = true;
-          return;
+        if (event.url.includes(AppConst.page.login)) {
+          if (!this.appService.isAuthenticated()) {
+            this.hideMenu = true;
+            return;
+          }
+          // Trường hợp đã login rồi thì redirect về trang chủ
+          this.router.navigate([AppConst.page.home]);
         }
         this.hideMenu = false;
       }

@@ -2,6 +2,10 @@
   <div class="app flex flex-col">
     <a routerLink="">Trang chủ</a>
     <a routerLink="/login">Trang đăng nhập</a>
+    @if(this.userInfo){
+      <span>Xin chào, {{this.userInfo.username}}</span>
+    }
+    <a routerLink="/logout">Đăng xuất</a>
   </div>
 }
 <router-outlet></router-outlet>

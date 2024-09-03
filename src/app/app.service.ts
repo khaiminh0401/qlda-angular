@@ -17,7 +17,7 @@ export class AppService {
   createHeaders = () => {
     this.headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`,
-      "access-control-allow-headers":"*",
+      'access-control-allow-headers': '*',
       'Content-Type': 'application/json',
     });
   };
@@ -25,7 +25,6 @@ export class AppService {
   methodGET = (url: string, params: any): Observable<Resp | undefined> => {
     this.headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`,
-      "access-control-allow-headers":"*",
       'Content-Type': 'application/json',
     });
     return this.http.get<Resp>(this.baseUrl + url, {
@@ -65,7 +64,7 @@ export class AppService {
     return this.methodGET('api/user/getInfo', dataRequest);
   };
 
-  signIn = (data: any) => {
+  signIn = (data: any) : void => {
     const resultLogin = this.methodPOST('auth/login', data);
 
     resultLogin
@@ -85,6 +84,7 @@ export class AppService {
       .subscribe((result) => {
         if (result && result?.status == 1) {
           localStorage.setItem('user_info', JSON.stringify(result?.data));
+          console.log(result);
           this.router.navigate([AppConst.page.home]);
           return;
         }
@@ -93,14 +93,29 @@ export class AppService {
   };
 
   /**
-   * Check đã đăng nhập hay chưa?
+   * * Check đã đăng nhập hay chưa?
    */
   isAuthenticated = (): boolean => {
     const token = localStorage.getItem(AppConst.common.key_token);
-    const username = localStorage.getItem("username");
-    if(token && username){
+    const username = localStorage.getItem('username');
+    if (token && username) {
       return true;
     }
     return false;
   };
+
+  getUser = () : UserInfo | null => {
+    let stringValue = localStorage.getItem("user_info");
+    if(stringValue){
+      return JSON.parse(stringValue);
+    }
+    return null;
+  }
+}
+
+export interface UserInfo{
+  id: string;
+  birthday: string;
+  role_id: string;
+  username: string;
 }
