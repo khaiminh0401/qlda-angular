@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   NavigationEnd,
   NavigationStart,
@@ -6,18 +7,28 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AppConst } from './app.const';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppService, UserInfo } from './app.service';
+import { UserInfo, AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterOutlet,
+    NzIconModule,
+    NzLayoutModule,
+    NzMenuModule,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+  isCollapsed = false;
   hideMenu: boolean = false;
   userInfo!: UserInfo | null;
 
