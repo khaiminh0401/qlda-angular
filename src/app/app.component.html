@@ -1,4 +1,4 @@
-<nz-layout class="app-layout">
+<nz-layout class="app-layout" [ngClass]="{'bg-transparent': hideMenu}">
   @if(!hideMenu){
   <nz-sider
     class="menu-sidebar"
@@ -9,9 +9,9 @@
     [nzTrigger]="null"
   >
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
+      <a routerLink="/">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-        <h1>Ant Design Of Angular</h1>
+        <h1>Quản lý dự án</h1>
       </a>
     </div>
     <ul
@@ -20,16 +20,14 @@
       nzMode="inline"
       [nzInlineCollapsed]="isCollapsed"
     >
-      <li nz-menu-item nzMatchRouter nzIcon="home">
-        <a routerLink="/home">Trang chủ</a>
+      <li nz-menu-item>
+        <span nz-icon nzType="home"></span>
+        <span routerLink="/home">Trang chủ</span>
       </li>
       <li nz-submenu nzOpen nzTitle="Cấu hình" nzIcon="setting">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/logout">Đăng xuất</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
           </li>
         </ul>
       </li>
@@ -44,7 +42,7 @@
   </nz-sider>
   }
 
-  <nz-layout>
+  <nz-layout [ngClass]="{'bg-transparent': hideMenu}">
     @if(!hideMenu){
     <nz-header>
       <div class="app-header">
