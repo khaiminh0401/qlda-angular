@@ -17,5 +17,10 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Check podman') {
+            steps {
+                sh 'podman -v'
+            }
+        }
     }
 }
