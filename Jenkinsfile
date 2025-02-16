@@ -1,5 +1,8 @@
 pipeline {
     agent any
+      tools {
+        nodejs 'NodeJS'  // Tên NodeJS đã cài trong Global Tool Configuration
+    }
     stages {
         stage('Checkout') {
             steps {
