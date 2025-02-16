@@ -1,6 +1,6 @@
 pipeline {
     agent any
-      tools {
+    tools {
         nodejs('22.0.0')  // Tên NodeJS đã cài trong Global Tool Configuration
     }
     stages {
